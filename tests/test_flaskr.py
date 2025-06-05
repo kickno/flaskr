@@ -8,6 +8,23 @@ from flaskr import app, init_db, get_db
 
 class TestFlaskr:
 
+    def test_test_issue(self):
+        """
+        This is just a test function to demonstrate understanding of the test framework.
+        It verifies that the application is properly configured.
+        """
+        # Check that the app is in testing mode
+        assert app.config['TESTING'] == True
+        
+        # Check that the app has the expected configuration values
+        assert 'DATABASE' in app.config
+        assert 'SECRET_KEY' in app.config
+        assert app.config['USERNAME'] == 'admin'
+        assert app.config['PASSWORD'] == 'default'
+        
+        # This is just a test
+        assert True
+
     def test_close_db(self):
         """
         Test that close_db() does not attempt to close the database connection
@@ -143,6 +160,21 @@ class TestFlaskr:
             # Note: We're not checking for specific entries here because
             # the database state is not guaranteed. In a real-world scenario,
             # you might want to set up a known database state before running this test.
+
+    def test_test_route(self):
+        """
+        Test the test_route function to ensure it correctly returns a JSON response
+        with the expected message.
+        """
+        with app.test_client() as client:
+            # Make a GET request to the test route
+            response = client.get('/test')
+
+            # Check if the response status code is 200 (OK)
+            assert response.status_code == 200
+
+            # Check if the response is a JSON response with the expected message
+            assert response.json == {'message': 'This is just a test'}
 
 
 

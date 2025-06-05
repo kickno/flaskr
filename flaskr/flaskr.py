@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
-    render_template, flash
+    render_template, flash, jsonify
 
 app = Flask(__name__)  # create the application instance :)
 app.config.from_object(__name__)  # load config from this file , flaskr.py
@@ -89,6 +89,15 @@ def login():
             flash('You were logged in')
             return redirect(url_for('show_entries'))
     return render_template('login.html', error=error)
+
+
+@app.route('/test')
+def test_route():
+    """
+    A simple test route to demonstrate the test issue.
+    Returns a JSON response with a test message.
+    """
+    return jsonify({'message': 'This is just a test'})
 
 
 @app.route('/logout')

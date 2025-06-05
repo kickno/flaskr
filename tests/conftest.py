@@ -4,6 +4,15 @@ import pytest
 from flaskr import app, init_db
 
 
+@pytest.fixture(autouse=True)
+def setup_testing_environment():
+    """Set up the testing environment for all tests."""
+    app.config['TESTING'] = True
+    yield
+    # Reset the configuration after the test
+    app.config['TESTING'] = False
+
+
 @pytest.fixture
 def client():
     """Create a test client for the app."""
